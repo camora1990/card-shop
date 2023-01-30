@@ -10,7 +10,7 @@ export class IconComponent implements OnInit {
   @Output() eventClick: EventEmitter<MouseEvent> = new EventEmitter();
   @Input() type: "fa-regular" | "fa-brands" | "fa-solid" = "fa-brands"
   @Input() iconClass : string = "fa-google-plus"
-  @Input() color: string = '#cdcdcd';
+  @Input() color: string = '#d9d6d1';
   icon: string = ''
   constructor() { }
 
