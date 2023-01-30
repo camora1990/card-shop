@@ -6,11 +6,9 @@ import { CardComponent } from './components/card/card.component';
 
 @NgModule({
 	declarations: [
-
-  
     CardComponent
   ],
 	imports: [CommonModule,MoleculesModule,AtomsModule],
-  exports:[]
+  exports:[CardComponent]
 })
 export class OrganismsModule {}
