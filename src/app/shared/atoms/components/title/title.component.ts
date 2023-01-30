@@ -16,7 +16,7 @@ export class TitleComponent implements OnInit {
 	@Input() label: string = 'Title';
 	@Input() size: string = '3rem';
 	@Input() fontWeght: string = '700';
-	@Input() color: string = '#d9d6d1';
+	@Input() color: string = "#E55151";
 	styles: Style | Object = {};
 	ngOnInit(): void {
 		this.styles = {
