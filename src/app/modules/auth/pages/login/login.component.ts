@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	login(event: MouseEvent) {
 		const suscription = this.$auth.loginGoogle().subscribe({
 			next: (_) => {
-				this.route.navigate(['card-shop/home']);
+				this.route.navigate(['card-shop']);
 			},
 		});
 		this.suscriptions.push(suscription);
