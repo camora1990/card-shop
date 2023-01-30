@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardLoginComponent } from './components/card-login/card-login.component';
 import { MoleculesModule } from '../molecules/molecules.module';
 import { AtomsModule } from '../atoms/atoms.module';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
 	declarations: [
-    CardLoginComponent
+
+  
+    CardComponent
   ],
 	imports: [CommonModule,MoleculesModule,AtomsModule],
-  exports:[CardLoginComponent]
+  exports:[]
 })
 export class OrganismsModule {}
