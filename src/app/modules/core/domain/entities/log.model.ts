@@ -1,5 +1,6 @@
 import { LogTypes } from "../enums/logTypes.model";
 import { ISODate } from "../valueObject/date.model";
+import { UserDto } from './userDto';
 
 
 export interface Log {
@@ -7,4 +8,5 @@ export interface Log {
 	type: LogTypes;
 	description: string;
 	timestamp: ISODate;
+	user: UserDto
 }
