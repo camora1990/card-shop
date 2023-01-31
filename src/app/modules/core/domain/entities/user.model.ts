@@ -1,7 +1,7 @@
 import { Card } from './card.model';
 import { Recharge } from './recharge.model';
 
-export interface User {
+export interface UserModel {
 	uid: string;
 	email: string;
 	username: string;

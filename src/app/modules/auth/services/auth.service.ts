@@ -4,11 +4,11 @@ import {
 	GoogleAuthProvider,
 	signInWithPopup,
 	signOut,
-	User as GoogleUser,
+	User
 } from '@firebase/auth';
 import { from, switchMap, tap, Observable } from 'rxjs';
 import { UserService } from '../../core/services/user.service';
-import { User } from '../../core/domain/entities/user.model';
+import { UserModel } from '../../core/domain/entities/user.model';
 import { Auth } from '@angular/fire/auth';
 
 @Injectable({
@@ -30,8 +30,8 @@ export class AuthService {
 		return signOut(this.$auth);
 	}
 
-	private createUser(user: GoogleUser): void {
-		const newUser: User = {
+	private createUser(user: User): void {
+		const newUser: UserModel = {
 			avatar: user.displayName!,
 			balance: 0,
 			deck: [],
