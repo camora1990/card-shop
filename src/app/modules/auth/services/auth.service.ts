@@ -4,7 +4,7 @@ import {
 	GoogleAuthProvider,
 	signInWithPopup,
 	signOut,
-	User
+	User,
 } from '@firebase/auth';
 import { from, switchMap, tap, Observable, take } from 'rxjs';
 import { UserService } from '../../core/services/user.service';
@@ -17,7 +17,11 @@ import { LogTypes } from '../../core/domain/enums/logTypes.model';
 	providedIn: 'root',
 })
 export class AuthService {
-	constructor(private $auth: Auth, private $user: UserService,private $log: LogService) {}
+	constructor(
+		private $auth: Auth,
+		private $user: UserService,
+		private $log: LogService,
+	) {}
 
 	loginGoogle() {
 		return from(signInWithPopup(this.$auth, new GoogleAuthProvider())).pipe(
@@ -27,13 +31,19 @@ export class AuthService {
 			}),
 			tap((user) => {
 				!user[0] && this.createUser(this.$auth.currentUser!);
-				this.$log.createLog(LogTypes.LOGIN,"Authenticated user")
+				this.$log.createLog(LogTypes.LOGIN, 'Authenticated user');
 			}),
 		);
 	}
 
-	logout(): Promise<void> {
-		return signOut(this.$auth);
+	logout(): Observable<void> {
+		const user = this.$user.currenUser!;
+		return from(signOut(this.$auth)).pipe(
+			take(1),
+			tap(() =>
+				this.$log.createLog(LogTypes.LOGOUT, 'logged out user', user),
+			),
+		);
 	}
 
 	private createUser(user: User): void {
