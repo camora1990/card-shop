@@ -1,5 +1,12 @@
 <div class="home">
 	<div class="container">
+		<div *ngFor="let heroid of groupCards">
+			<div *ngFor="let cards of heroid | keyvalue">
+				<div *ngFor="let card of cards.value">
+					<pre (click)="inactiveCard(card)">{{ card | json }}</pre>
+				</div>
+			</div>
+		</div>
 		<router-outlet></router-outlet>
 	</div>
 </div>

@@ -4,12 +4,12 @@
 
 export const environment = {
   firebase: {
-    projectId: 'card-shop-7343b',
-    appId: '1:294490442314:web:fd2cd4f2729b789fe534b3',
-    storageBucket: 'card-shop-7343b.appspot.com',
-    apiKey: 'AIzaSyAdWeAhD7Dol20WAASlG7zVHR_C2mM_taQ',
-    authDomain: 'card-shop-7343b.firebaseapp.com',
-    messagingSenderId: '294490442314',
+    projectId: 'shop-c99ee',
+    appId: '1:927724807875:web:a12a0878ef06ac319ba476',
+    storageBucket: 'shop-c99ee.appspot.com',
+    apiKey: 'AIzaSyC88QNeERavGydhrnLa7ZDw-nJe03gisy8',
+    authDomain: 'shop-c99ee.firebaseapp.com',
+    messagingSenderId: '927724807875',
   },
   production: false
 };

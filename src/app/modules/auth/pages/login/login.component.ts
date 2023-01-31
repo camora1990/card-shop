@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	suscriptions: Subscription[] = [];
 	constructor(private $auth: AuthService, private route: Router) {}
 	ngOnDestroy(): void {
-		this.suscriptions.forEach((s) => s.unsubscribe());
+		// this.suscriptions.forEach((s) => s.unsubscribe());
 	}
 
 	ngOnInit(): void {}
@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	login(event: MouseEvent) {
 		const suscription = this.$auth.loginGoogle().subscribe({
 			next: (_) => {
+				debugger
 				this.route.navigate(['card-shop']);
 			},
 		});
