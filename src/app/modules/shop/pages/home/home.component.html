@@ -3,7 +3,7 @@
 		<div *ngFor="let heroid of groupCards">
 			<div *ngFor="let cards of heroid | keyvalue">
 				<div *ngFor="let card of cards.value">
-					<pre (click)="inactiveCard(card)">{{ card | json }}</pre>
+					<pre (click)="buyCard(card)">{{ card | json }}</pre>
 				</div>
 			</div>
 		</div>
@@ -11,4 +11,3 @@
 	</div>
 </div>
 
-<button (click)="logout()">logout</button>

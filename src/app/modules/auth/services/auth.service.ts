@@ -20,11 +20,9 @@ export class AuthService {
 	loginGoogle() {
 		return from(signInWithPopup(this.$auth, new GoogleAuthProvider())).pipe(
 			switchMap((data) => {
-				debugger
 				return this.$user.getUser(data.user.uid);
 			}),
 			tap((user) => {
-				debugger;
 				!user[0] && this.createUser(this.$auth.currentUser!);
 			}),
 		);
@@ -36,7 +34,7 @@ export class AuthService {
 
 	private createUser(user: GoogleUser): void {
 		const newUser: User = {
-			avatar: user.displayName!,
+			avatar: user.photoURL!,
 			balance: 0,
 			deck: [],
 			email: user.email!,

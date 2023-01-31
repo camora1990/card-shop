@@ -13,25 +13,23 @@ import { AuthService } from '../../../auth/services/auth.service';
 export class HomeComponent implements OnInit, OnDestroy {
 	groupCards: CardGroupBy[] = [];
 	suscriptions: Subscription[] = [];
-	constructor(private $card: CardService, private auth:AuthService) {}
+	constructor(private $card: CardService, private auth: AuthService) {}
 
 	ngOnDestroy(): void {
 		this.suscriptions.forEach((e) => e.unsubscribe());
 	}
 
 	ngOnInit(): void {
-		// this.suscriptions.push(
-		// 	this.$card
-		// 		.getCards()
-		// 		.pipe(tap((resp) => this.transformData(resp)))
-		// 		.subscribe((resp) => {}),
-		// );
+		this.suscriptions.push(
+			this.$card
+				.getCards()
+				.pipe(tap((resp) => this.transformData(resp)))
+				.subscribe((resp) => {}),
+		);
 	}
 
-	inactiveCard(card: Card) {
-		 this.$card
-			.buyCard(card)
-			.subscribe((res)=>console.log(res));
+	buyCard(card: Card) {
+		this.$card.buyCard(card).subscribe((res) => console.log(res));
 	}
 
 	private transformData(cards: Card[]) {
@@ -47,8 +45,5 @@ export class HomeComponent implements OnInit, OnDestroy {
 		}, []);
 	}
 
-	logout(){
-		debugger
-		this.auth.logout().then()
-	}
+	
 }
