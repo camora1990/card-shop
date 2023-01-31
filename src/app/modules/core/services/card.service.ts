@@ -27,6 +27,8 @@ import { UserService } from './user.service';
 import { HistoryChange } from '../domain/entities/historyChange.model';
 import { HistoryType } from '../domain/enums/historyType.model';
 import { UserModel } from '../domain/entities/user.model';
+import { LogService } from './log.service';
+import { LogTypes } from '../domain/enums/logTypes.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -34,7 +36,7 @@ import { UserModel } from '../domain/entities/user.model';
 export class CardService {
 	private refCards: CollectionReference;
 
-	constructor(private $firestore: Firestore, private $user: UserService) {
+	constructor(private $firestore: Firestore, private $user: UserService,private $log:LogService) {
 		this.refCards = collection(this.$firestore, 'cards');
 	}
 
@@ -91,6 +93,7 @@ export class CardService {
 					}),
 				),
 				from(this.$user.updateUser(user)),
+				from(this.$log.createLog(LogTypes.PURCHASE,"Purchased card"))
 			);
 		}
 
