@@ -1,9 +1,10 @@
 
 import { HistoryType } from '../enums/historyType.model';
-import { User } from './user.model';
+import { UserDto } from './userDto';
+
 
 export interface HistoryChange {
 	uid: string;
 	type: HistoryType;
-	owner: User;
+	owner: UserDto;
 }
