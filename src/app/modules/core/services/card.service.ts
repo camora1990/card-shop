@@ -94,7 +94,7 @@ export class CardService {
 			);
 		}
 
-		return throwError(()=>`Card not available for sale `);
+		return throwError(()=>`Card not available for purchase`);
 
 	}
 }
