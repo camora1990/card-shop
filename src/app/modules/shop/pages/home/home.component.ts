@@ -3,6 +3,7 @@ import { CardGroupBy } from 'src/app/modules/core/domain/entities/cardGroupBy.mo
 import { Card } from '../../../core/domain/entities/card.model';
 import { CardService } from '../../../core/services/card.service';
 import { Subscription, switchMap, tap } from 'rxjs';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
 	selector: 'app-home',
@@ -12,19 +13,19 @@ import { Subscription, switchMap, tap } from 'rxjs';
 export class HomeComponent implements OnInit, OnDestroy {
 	groupCards: CardGroupBy[] = [];
 	suscriptions: Subscription[] = [];
-	constructor(private $card: CardService) {}
+	constructor(private $card: CardService, private auth:AuthService) {}
 
 	ngOnDestroy(): void {
 		this.suscriptions.forEach((e) => e.unsubscribe());
 	}
 
 	ngOnInit(): void {
-		this.suscriptions.push(
-			this.$card
-				.getCards()
-				.pipe(tap((resp) => this.transformData(resp)))
-				.subscribe((resp) => {}),
-		);
+		// this.suscriptions.push(
+		// 	this.$card
+		// 		.getCards()
+		// 		.pipe(tap((resp) => this.transformData(resp)))
+		// 		.subscribe((resp) => {}),
+		// );
 	}
 
 	inactiveCard(card: Card) {
@@ -44,5 +45,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 			];
 			return ant;
 		}, []);
+	}
+
+	logout(){
+		debugger
+		this.auth.logout().then()
 	}
 }

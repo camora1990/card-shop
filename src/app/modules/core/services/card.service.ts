@@ -37,8 +37,7 @@ export class CardService {
 	}
 
 	public buyCard(card: Card) {
-		const cardReference = doc(this.refCards, card.uid);
-		// 
+		const cardReference = doc(this.refCards, card.uid)
 		return this.$user.getUser("5pygPrNvlkSZ9koFYPD41r0iyTX2")
 	}
 

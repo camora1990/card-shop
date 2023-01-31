@@ -19,13 +19,13 @@ export class AuthService {
 
 	loginGoogle() {
 		return from(signInWithPopup(this.$auth, new GoogleAuthProvider())).pipe(
-			switchMap(({ user }) => {
+			switchMap((data) => {
 				debugger
-				return this.$user.getUser(user.uid);
+				return this.$user.getUser(data.user.uid);
 			}),
 			tap((user) => {
 				debugger;
-				!user && this.createUser(this.$auth.currentUser!);
+				!user[0] && this.createUser(this.$auth.currentUser!);
 			}),
 		);
 	}

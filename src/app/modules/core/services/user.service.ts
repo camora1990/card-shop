@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { User } from '../domain/entities/user.model';
 import { Observable } from 'rxjs';
-import { collection, CollectionReference, doc, docData, Firestore, setDoc ,} from '@angular/fire/firestore';
+import { collection, collectionData, CollectionReference, doc, docData, Firestore, setDoc, where ,} from '@angular/fire/firestore';
 import { Auth ,User as GoogleUser} from '@angular/fire/auth';
+import { query } from '@firebase/firestore';
 
 @Injectable({
 	providedIn: 'root',
@@ -23,9 +24,9 @@ export class UserService {
 		return setDoc(userRef, user);
 	}
 
-	public getUser(uid: string): Observable<User> {
-		const userRef = doc(this.$firestore, `users/${uid}}`);
-		return docData(userRef, { idField: 'uid' }) as Observable<User>;
+	public getUser(uid: string): Observable<User[]> {
+		const query_user = query(this.refCollectionUser,where('uid',"==",uid))
+		return collectionData(query_user) as Observable<User[]>
 	}
 
 	public updateUser(user: User): Promise<void> {
