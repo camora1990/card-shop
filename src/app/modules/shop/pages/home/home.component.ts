@@ -24,12 +24,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 			this.$card
 				.getCards()
 				.pipe(tap((resp) => this.transformData(resp)))
-				.subscribe((resp) => {}),
+				.subscribe(),
 		);
 	}
 
 	buyCard(card: Card) {
-		this.$card.buyCard(card).subscribe((res) => console.log(res));
+		this.$card.buyCard(card).subscribe();
 	}
 
 	private transformData(cards: Card[]) {
