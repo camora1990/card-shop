@@ -8,4 +8,8 @@ export class ISODate {
 	public static toDate(string: string): Date {
 		return new Date(string);
 	}
+
+	public static now(): ISODate {
+		return new ISODate(new Date().toISOString());
+	}
 }

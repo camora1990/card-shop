@@ -7,6 +7,6 @@ export interface Log {
 	uid: string;
 	type: LogTypes;
 	description: string;
-	timestamp: ISODate;
+	timestamp: string;
 	user: UserDto
 }

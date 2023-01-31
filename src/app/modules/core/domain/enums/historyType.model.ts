@@ -1,4 +1,4 @@
 export enum HistoryType {
-	PURCHASE,
-	GIFT,
+	PURCHASE="PURCHASE",
+	GIFT="GIFT",
 }
