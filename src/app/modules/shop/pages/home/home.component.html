@@ -14,6 +14,10 @@
 				></app-icon>
 			</div>
 		</app-nav-bar>
+		<app-title
+			label="Card shop marvel"
+			class="text-center mt-5"
+		></app-title>
 		<div
 			class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4"
 		>
@@ -36,11 +40,13 @@
 						[placeHolder]="'Available ' + item.quantity"
 					></app-badge>
 				</div>
-				<app-button-icon
-					type="fa-solid"
-					iconClass="fa-cart-shopping"
-					placeholder="Buy"
-				></app-button-icon>
+				<div class="col-12 mt-auto p-2 bd-highlight">
+					<app-button-icon
+						type="fa-solid"
+						iconClass="fa-cart-shopping"
+						placeholder="Buy"
+					></app-button-icon>
+				</div>
 			</app-card>
 		</div>
 		<router-outlet></router-outlet>
