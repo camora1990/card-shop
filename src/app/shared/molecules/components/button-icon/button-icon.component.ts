@@ -12,7 +12,7 @@ export class ButtonIconComponent implements OnInit {
   @Input() color: string = '#cdcdcd';
 
   @Input() classBtn: 'primary-button' | 'secondary-button' = 'primary-button';
-	@Input() placeholder: string = 'Pimary';
+	@Input() placeholder: string = '';
 
   @Output() clickEvent: EventEmitter<MouseEvent> = new EventEmitter();
 

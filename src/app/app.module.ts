@@ -9,10 +9,12 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { MoleculesModule } from './shared/molecules/molecules.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
+		CommonModule,
 		BrowserModule,
 		AppRoutingModule,
 		MoleculesModule,

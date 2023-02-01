@@ -4,10 +4,36 @@ import { IconComponent } from './components/icon/icon.component';
 import { TitleComponent } from './components/title/title.component';
 import { ButtonComponent } from './components/button/button.component';
 import { SubtitleComponent } from './components/subtitle/subtitle.component';
+import { BrandComponent } from './components/brand/brand.component';
+import { RouterModule } from '@angular/router';
+import { IconMenuComponent } from './components/icon-menu/icon-menu.component';
+import { ItemMenuComponent } from './components/item-menu/item-menu.component';
+import { AvatarComponent } from './components/avatar/avatar.component';
+import { DropdownItemComponent } from './components/dropdown-item/dropdown-item.component';
 
 @NgModule({
-	declarations: [IconComponent, TitleComponent, ButtonComponent, SubtitleComponent],
-	imports: [CommonModule],
-	exports: [IconComponent, TitleComponent, ButtonComponent,SubtitleComponent],
+	declarations: [
+		IconComponent,
+		TitleComponent,
+		ButtonComponent,
+		SubtitleComponent,
+		BrandComponent,
+		IconMenuComponent,
+		ItemMenuComponent,
+		AvatarComponent,
+		DropdownItemComponent,
+	],
+	imports: [CommonModule, RouterModule],
+	exports: [
+		IconComponent,
+		TitleComponent,
+		ButtonComponent,
+		SubtitleComponent,
+		BrandComponent,
+		IconMenuComponent,
+		ItemMenuComponent,
+		AvatarComponent,
+		DropdownItemComponent
+	],
 })
 export class AtomsModule {}
