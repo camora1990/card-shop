@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CardComponent implements OnInit {
 
   @Input() title: string ="Title"
-  @Input() subtitle: string ="Title"
+  @Input() subtitle: string =""
   @Input() classImage: string = 'card-img-top'
   @Input() hasImage: boolean = true
   @Input() src: string = ''

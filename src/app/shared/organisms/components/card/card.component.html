@@ -1,4 +1,4 @@
-<div class="card bg-transparent">
+<div class="card bg-transparent h-100">
 	<app-image
 		[classImage]="classImage"
 		[src]="src"
@@ -6,9 +6,9 @@
 		*ngIf="hasImage"
 	></app-image>
 	<div class="card-body">
-		<app-title class="card-title" [label]="title"></app-title>
-		<app-subtitle [label]="subtitle"></app-subtitle>
-		<app-text [text]="description"></app-text>
-		<ng-content></ng-content>
+		<app-title [size]="styles.fontSize" class="card-title" [label]="title"></app-title>
+		<app-subtitle *ngIf="subtitle != ''" [label]="subtitle"></app-subtitle>
+		<app-text class="mb-4" [text]="description"></app-text>
+		<ng-content class="d-block" ></ng-content>
 	</div>
 </div>
