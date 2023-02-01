@@ -1,6 +1,6 @@
 <div class="home">
-	<div class="container">
-		<app-nav-bar class="" [menuModel]="menu">
+	<div class="container position-relative">
+		<app-nav-bar [menuModel]="menu">
 			<div class="d-flex align-items-center">
 				<app-avatar
 					class="me-3"
@@ -14,18 +14,34 @@
 				></app-icon>
 			</div>
 		</app-nav-bar>
-		<div *ngFor="let heroid of groupCards">
-			<div *ngFor="let cards of heroid | keyvalue">
-				<div *ngFor="let card of cards.value">
-					<app-card
-						[title]="card.name"
-						[alt]="card.name"
-						[description]="card.description"
-						[hasImage]="true"
-						[src]="card.imageUrl"
-					></app-card>
+		<div
+			class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4"
+		>
+			<app-card
+				*ngFor="let item of groupCards"
+				[title]="item.hero.name"
+				[alt]="item.hero.name"
+				[description]="item.hero.description"
+				[hasImage]="true"
+				[src]="item.hero.imageUrl"
+				class="col"
+			>
+				<div class="mt-2">
+					<app-badge
+						classBadge="bg-success me-3"
+						[placeHolder]="'Price $' + item.hero.price"
+					></app-badge>
+					<app-badge
+						classBadge="bg-primary me-3"
+						[placeHolder]="'Available ' + item.quantity"
+					></app-badge>
 				</div>
-			</div>
+				<app-button-icon
+					type="fa-solid"
+					iconClass="fa-cart-shopping"
+					placeholder="Buy"
+				></app-button-icon>
+			</app-card>
 		</div>
 		<router-outlet></router-outlet>
 	</div>
