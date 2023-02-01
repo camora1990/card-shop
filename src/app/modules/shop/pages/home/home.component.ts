@@ -2,10 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CardGroupBy } from 'src/app/modules/core/domain/entities/cardGroupBy.model';
 import { Card } from '../../../core/domain/entities/card.model';
 import { CardService } from '../../../core/services/card.service';
-import { Subscription, switchMap, tap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../../../auth/services/auth.service';
 import { MenuModel } from '../../../core/domain/valueObject/menuModel';
 import { Router } from '@angular/router';
+import { MenuItem } from '../../../core/domain/valueObject/menuItem.model';
+import { User } from '@angular/fire/auth';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
 	selector: 'app-home',
@@ -16,9 +19,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 	groupCards: CardGroupBy[] = [];
 	suscriptions: Subscription[] = [];
 	menu: MenuModel;
+	configMenu: MenuItem[] = [];
 	constructor(
 		private $card: CardService,
 		private $auth: AuthService,
+		private $user: UserService,
 		private $route: Router,
 	) {
 		this.menu = {
@@ -33,10 +38,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 				{
 					itemClass: 'nav-item',
 					placeHolder: 'My deck',
-					router: '/card-shop',
+					router: '',
+				},
+				{
+					itemClass: 'nav-item',
+					placeHolder: 'Recharge',
+					router: '',
 				},
 			],
 		};
+		
 	}
 
 	ngOnDestroy(): void {
@@ -73,5 +84,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 		this.$auth.logout().subscribe({
 			next: () => this.$route.navigate(['/auth']),
 		});
+	}
+
+	public get currentUser(): User | null {
+		return this.$user.currenUser;
 	}
 }
