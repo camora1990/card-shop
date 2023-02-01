@@ -1,3 +1,14 @@
-<app-title [label]="title"></app-title>
-<app-subtitle [label]="subtitle"></app-subtitle>
-<ng-content></ng-content>
+<div class="card bg-transparent">
+	<app-image
+		[classImage]="classImage"
+		[src]="src"
+		[alt]="alt"
+		*ngIf="hasImage"
+	></app-image>
+	<div class="card-body">
+		<app-title class="card-title" [label]="title"></app-title>
+		<app-subtitle [label]="subtitle"></app-subtitle>
+		<app-text [text]="description"></app-text>
+		<ng-content></ng-content>
+	</div>
+</div>
