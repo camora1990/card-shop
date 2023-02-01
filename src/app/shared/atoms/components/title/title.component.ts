@@ -21,7 +21,7 @@ export class TitleComponent implements OnInit {
 	ngOnInit(): void {
 		this.styles = {
 			color: this.color,
-			fontSize: this.fontWeght,
+			fontSize: this.size,
 			fontWeight: this.fontWeght,
 		};
 	}
