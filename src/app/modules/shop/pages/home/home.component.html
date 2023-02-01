@@ -2,14 +2,28 @@
 	<div class="container">
 		<app-nav-bar class="" [menuModel]="menu">
 			<div class="d-flex align-items-center">
-				<app-avatar class="me-3" [image]="currentUser?.photoURL || ''"></app-avatar>
-				<app-icon class="me-3" (eventClick)="logout($event)" [iconClass]="'fa-power-off'" [type]="'fa-solid'"></app-icon>
+				<app-avatar
+					class="me-3"
+					[image]="currentUser?.photoURL || ''"
+				></app-avatar>
+				<app-icon
+					class="me-3"
+					(eventClick)="logout($event)"
+					[iconClass]="'fa-power-off'"
+					[type]="'fa-solid'"
+				></app-icon>
 			</div>
 		</app-nav-bar>
 		<div *ngFor="let heroid of groupCards">
 			<div *ngFor="let cards of heroid | keyvalue">
 				<div *ngFor="let card of cards.value">
-					<pre (click)="buyCard(card)">{{ card | json }}</pre>
+					<app-card
+						[title]="card.name"
+						[alt]="card.name"
+						[description]="card.description"
+						[hasImage]="true"
+						[src]="card.imageUrl"
+					></app-card>
 				</div>
 			</div>
 		</div>
