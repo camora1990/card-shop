@@ -1,0 +1,17 @@
+:host {
+	border: 5px solid rgb(185 28 28);
+}
+
+div {
+	overflow: hidden;
+	height: 350px;
+	display: grid;
+	place-items: center;
+
+	img {
+		display: flex;
+		height: 100%;
+		width: 100%;
+		border-radius: 0% !important;
+	}
+}

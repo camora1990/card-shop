@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CardGroupBy } from 'src/app/modules/core/domain/entities/cardGroupBy.model';
 import { Card } from '../../../core/domain/entities/card.model';
 import { CardService } from '../../../core/services/card.service';
-import { Subscription } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 import { AuthService } from '../../../auth/services/auth.service';
 import { MenuModel } from '../../../core/domain/valueObject/menuModel';
 import { Router } from '@angular/router';
@@ -55,12 +55,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		// this.suscriptions.push(
-		// 	this.$card
-		// 		.getCards()
-		// 		.pipe(tap((resp) => this.transformData(resp)))
-		// 		.subscribe(),
-		// );
+		this.suscriptions.push(
+			this.$card
+				.getCards()
+				.pipe(tap((resp) => this.transformData(resp)))
+				.subscribe(),
+		);
 	}
 
 	buyCard(card: Card) {
@@ -70,10 +70,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 	private transformData(cards: Card[]) {
 		const idHero = Array.from(new Set(cards.map((e) => e.idHero)));
 		this.groupCards = idHero.reduce((ant: CardGroupBy[], act: string) => {
+			const heroes = cards.filter((e) => e.idHero == act)
 			ant = [
 				...ant,
 				{
-					[act]: cards.filter((e) => e.idHero == act),
+					idHero: Number(act),
+					quantity:heroes.length,
+					hero: heroes[0]
 				},
 			];
 			return ant;

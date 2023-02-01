@@ -10,6 +10,9 @@ import { IconMenuComponent } from './components/icon-menu/icon-menu.component';
 import { ItemMenuComponent } from './components/item-menu/item-menu.component';
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { DropdownItemComponent } from './components/dropdown-item/dropdown-item.component';
+import { ImageComponent } from './components/image/image.component';
+import { TextComponent } from './components/text/text.component';
+import { BadgeComponent } from './components/badge/badge.component';
 
 @NgModule({
 	declarations: [
@@ -22,6 +25,9 @@ import { DropdownItemComponent } from './components/dropdown-item/dropdown-item.
 		ItemMenuComponent,
 		AvatarComponent,
 		DropdownItemComponent,
+		ImageComponent,
+		TextComponent,
+		BadgeComponent,
 	],
 	imports: [CommonModule, RouterModule],
 	exports: [
@@ -33,7 +39,10 @@ import { DropdownItemComponent } from './components/dropdown-item/dropdown-item.
 		IconMenuComponent,
 		ItemMenuComponent,
 		AvatarComponent,
-		DropdownItemComponent
+		DropdownItemComponent,
+		ImageComponent,
+		TextComponent,
+		BadgeComponent,
 	],
 })
 export class AtomsModule {}

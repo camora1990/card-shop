@@ -1,3 +1,14 @@
-<app-title [label]="title"></app-title>
-<app-subtitle [label]="subtitle"></app-subtitle>
-<ng-content></ng-content>
+<div class="card bg-transparent h-100">
+	<app-image
+		[classImage]="classImage"
+		[src]="src"
+		[alt]="alt"
+		*ngIf="hasImage"
+	></app-image>
+	<div class="card-body d-flex flex-column bd-highlight">
+		<app-title [size]="styles.fontSize" class="card-title" [label]="title"></app-title>
+		<app-subtitle *ngIf="subtitle != ''" [label]="subtitle"></app-subtitle>
+		<app-text class="mb-1" [text]="description"></app-text>
+		<ng-content class="d-block" ></ng-content>
+	</div>
+</div>
