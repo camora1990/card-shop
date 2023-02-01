@@ -28,7 +28,6 @@ export class LogService {
 	}
 
 	private generateLog(type: LogTypes, description: string, currentUser:User): Log {
-		debugger
 		return {
 			description,
 			timestamp: ISODate.now().ISOString,

@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { MenuItem } from '../../../core/domain/valueObject/menuItem.model';
 import { User } from '@angular/fire/auth';
 import { UserService } from '../../../core/services/user.service';
+import { SweetAlertService } from '../../../core/services/sweet-alert.service';
+import Swal from 'sweetalert2';
 
 @Component({
 	selector: 'app-home',
@@ -25,6 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 		private $auth: AuthService,
 		private $user: UserService,
 		private $route: Router,
+		private $swal: SweetAlertService,
 	) {
 		this.menu = {
 			brand: true,
@@ -47,7 +50,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 				},
 			],
 		};
-		
 	}
 
 	ngOnDestroy(): void {
@@ -64,19 +66,27 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	buyCard(card: Card) {
-		this.$card.buyCard(card).subscribe();
+		this.$swal
+			.confirmDialog()
+			.then()
+			.then((result) => {
+				if (result.isConfirmed) {
+					this.$swal.seccessMessage(`Card ${card.name} purchased successfully`);
+				}
+			});
+		// this.$card.buyCard(card).subscribe();
 	}
 
 	private transformData(cards: Card[]) {
 		const idHero = Array.from(new Set(cards.map((e) => e.idHero)));
 		this.groupCards = idHero.reduce((ant: CardGroupBy[], act: string) => {
-			const heroes = cards.filter((e) => e.idHero == act)
+			const heroes = cards.filter((e) => e.idHero == act);
 			ant = [
 				...ant,
 				{
 					idHero: Number(act),
-					quantity:heroes.length,
-					hero: heroes[0]
+					quantity: heroes.length,
+					hero: heroes[0],
 				},
 			];
 			return ant;

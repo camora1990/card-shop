@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { SweetAlertService } from '../../../core/services/sweet-alert.service';
 
 @Component({
 	selector: 'app-login',
@@ -13,7 +14,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 	subTitle: string = 'Available now';
 	placeHolder: string = 'Sign in with google';
 	suscriptions: Subscription[] = [];
-	constructor(private $auth: AuthService, private route: Router) {}
+	constructor(
+		private $auth: AuthService,
+		private route: Router,
+		private $swal: SweetAlertService,
+	) {}
 	ngOnDestroy(): void {
 		this.suscriptions.forEach((s) => s.unsubscribe());
 	}
@@ -22,7 +27,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	login(event: MouseEvent) {
 		const suscription = this.$auth.loginGoogle().subscribe({
-			next: (_) => {
+			next: (user) => {
+				debugger;
+				this.$swal.seccessMessage(`Welcome ${user[0].username}`);
 				this.route.navigate(['card-shop']);
 			},
 		});

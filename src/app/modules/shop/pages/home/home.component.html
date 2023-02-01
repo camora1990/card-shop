@@ -15,7 +15,7 @@
 			</div>
 		</app-nav-bar>
 		<app-title
-			label="Card shop marvel"
+			label="Marvel card shop"
 			class="text-center mt-5"
 		></app-title>
 		<div
@@ -42,6 +42,7 @@
 				</div>
 				<div class="col-12 mt-auto p-2 bd-highlight">
 					<app-button-icon
+					(clickEvent)="buyCard(item.hero)"
 						type="fa-solid"
 						iconClass="fa-cart-shopping"
 						placeholder="Buy"
