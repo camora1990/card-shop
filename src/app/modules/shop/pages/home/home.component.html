@@ -39,8 +39,12 @@
 						classBadge="bg-primary me-3"
 						[placeHolder]="'Available ' + item.quantity"
 					></app-badge>
+					<app-badge
+						classBadge="bg-danger me-3"
+						[placeHolder]="'Power ' + item.hero.power"
+					></app-badge>
 				</div>
-				<div class="col-12 mt-auto p-2 bd-highlight">
+				<div class="col-12 mt-auto p-3 bd-highlight">
 					<app-button-icon
 					(clickEvent)="buyCard(item.hero)"
 						type="fa-solid"

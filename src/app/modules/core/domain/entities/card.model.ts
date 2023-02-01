@@ -8,5 +8,6 @@ export interface Card {
 	price: number;
 	imageUrl: string;
 	history: HistoryChange[];
-	idHero: string
+	idHero: string,
+	power: number
 }

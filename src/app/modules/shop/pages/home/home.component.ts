@@ -71,10 +71,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 			.then()
 			.then((result) => {
 				if (result.isConfirmed) {
-					this.$swal.seccessMessage(`Card ${card.name} purchased successfully`);
+					this.$card.buyCard(card).subscribe({
+						next: () =>
+							this.$swal.seccessMessage(
+								`Card ${card.name} purchased successfully`,
+							),
+						error: (err) => this.$swal.errorMessage(undefined, err),
+					});
 				}
 			});
-		// this.$card.buyCard(card).subscribe();
 	}
 
 	private transformData(cards: Card[]) {
@@ -90,7 +95,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 				},
 			];
 			return ant;
-		}, []);
+		}, []).sort((a,b)=>a.hero.power-b.hero.power);
 	}
 
 	logout(event: MouseEvent) {

@@ -18,8 +18,14 @@ i {
 	cursor: pointer;
 }
 
-.container{
-	max-width:  1700px;
+.container {
+	max-width: 1700px;
+}
+
+.card {
+	clip-path: polygon(0 0, 100% 0, 100% 90%, 94% 100%, 25% 100%, 0 100%);
+
+
 }
 
 $primary-color: rgb(185 28 28);

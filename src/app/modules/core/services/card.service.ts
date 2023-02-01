@@ -5,13 +5,17 @@ import {
 	doc,
 	docData,
 	Firestore,
-	query,
 	setDoc,
 	where,
 } from '@angular/fire/firestore';
 
-import { collection, DocumentReference } from '@firebase/firestore';
-import {  uuidv4} from "@firebase/util";
+import {
+	collection,
+	DocumentReference,
+	query,
+	orderBy,
+} from '@firebase/firestore';
+import { uuidv4 } from '@firebase/util';
 import {
 	Observable,
 	throwError,
@@ -36,19 +40,21 @@ import { LogTypes } from '../domain/enums/logTypes.model';
 export class CardService {
 	private refCards: CollectionReference;
 
-	constructor(private $firestore: Firestore, private $user: UserService,private $log:LogService) {
+	constructor(
+		private $firestore: Firestore,
+		private $user: UserService,
+		private $log: LogService,
+	) {
 		this.refCards = collection(this.$firestore, 'cards');
 	}
 
 	public getCards(): Observable<Card[]> {
 		const query_cards = query(
 			this.refCards,
-			where('activeForSale', '==', true),
+			where('activeForSale', '==', true)
 		);
 
-		return collectionData(query_cards, {
-			idField: 'uid',
-		}) as unknown as Observable<Card[]>;
+		return collectionData(query_cards) as unknown as Observable<Card[]>;
 	}
 
 	public buyCard(card: Card) {
@@ -61,10 +67,10 @@ export class CardService {
 				return of(user);
 			}),
 			switchMap((user) => {
-				return zip(this.getCard(card.uid), of(user));
+				return zip(this.getCardsByHero(Number(card.idHero)), of(user));
 			}),
 			mergeMap(([card, user]) => {
-				return this.validateBuyCard(card,user[0],cardReference)
+				return this.validateBuyCard(card, user[0], cardReference);
 			}),
 		);
 	}
@@ -74,30 +80,41 @@ export class CardService {
 		return docData(cards, { idField: 'uid' }) as Observable<Card>;
 	}
 
-	private validateBuyCard(card:Card,user:UserModel, cardReference:DocumentReference){
-		if (card.activeForSale) {
-			const {avatar,uid,email,username} = user
-			const history: HistoryChange={
-				owner: {avatar,email,uid,username},
+	public getCardsByHero(idHero: number) {
+		const query_card = query(this.refCards, where('idHero', '==', idHero));
+
+		return collectionData(query_card, {
+			idField: 'uid',
+		}) as Observable<Card[]>;
+	}
+
+	private validateBuyCard(
+		card: Card[],
+		user: UserModel,
+		cardReference: DocumentReference,
+	) {
+		if (card[0].activeForSale) {
+			const { avatar, uid, email, username } = user;
+			const history: HistoryChange = {
+				owner: { avatar, email, uid, username },
 				type: HistoryType.PURCHASE,
-				uid: uuidv4()
-			}
-			card.history.push(history)
-			user.balance -= card.price;
-			user.deck = [...user.deck, card];
+				uid: uuidv4(),
+			};
+			card[0].history.push(history);
+			user.balance -= card[0].price;
+			user.deck = [...user.deck, card[0]];
 			return zip(
 				from(
 					setDoc(cardReference, {
-						...card,
+						...card[0],
 						activeForSale: false,
 					}),
 				),
 				from(this.$user.updateUser(user)),
-				from(this.$log.createLog(LogTypes.PURCHASE,"Purchased card"))
+				from(this.$log.createLog(LogTypes.PURCHASE, 'Purchased card')),
 			);
 		}
 
-		return throwError(()=>`Card not available for purchase`);
-
+		return throwError(() => `Card not available for purchase`);
 	}
 }
