@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	subTitle: string = 'Available now';
 	placeHolder: string = 'Sign in with google';
 	suscriptions: Subscription[] = [];
+	loading: boolean = false
 	constructor(
 		private $auth: AuthService,
 		private route: Router,
@@ -26,9 +27,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {}
 
 	login(event: MouseEvent) {
+		this.loading = true
 		const suscription = this.$auth.loginGoogle().subscribe({
 			next: (user) => {
-				debugger;
+				this.loading = false
 				this.$swal.seccessMessage(`Welcome ${user[0].username}`);
 				this.route.navigate(['card-shop']);
 			},

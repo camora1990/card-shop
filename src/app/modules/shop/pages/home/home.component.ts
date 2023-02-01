@@ -10,7 +10,7 @@ import { MenuItem } from '../../../core/domain/valueObject/menuItem.model';
 import { User } from '@angular/fire/auth';
 import { UserService } from '../../../core/services/user.service';
 import { SweetAlertService } from '../../../core/services/sweet-alert.service';
-import Swal from 'sweetalert2';
+import { LoadingService } from '../../../core/services/loading.service';
 
 @Component({
 	selector: 'app-home',
@@ -22,12 +22,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 	suscriptions: Subscription[] = [];
 	menu: MenuModel;
 	configMenu: MenuItem[] = [];
+	showLoading: boolean = true;
 	constructor(
 		private $card: CardService,
 		private $auth: AuthService,
 		private $user: UserService,
 		private $route: Router,
 		private $swal: SweetAlertService,
+		private $loading: LoadingService,
 	) {
 		this.menu = {
 			brand: true,
@@ -57,26 +59,36 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
+		this.$loading.loading.subscribe((value) => {
+			this.showLoading = value;
+		});
 		this.suscriptions.push(
 			this.$card
 				.getCards()
 				.pipe(tap((resp) => this.transformData(resp)))
-				.subscribe(),
+				.subscribe(() => (this.showLoading = false)),
 		);
 	}
 
 	buyCard(card: Card) {
+		
 		this.$swal
 			.confirmDialog()
 			.then()
 			.then((result) => {
 				if (result.isConfirmed) {
+					this.showLoading = true;
 					this.$card.buyCard(card).subscribe({
-						next: () =>
+						next: () => {
+							this.showLoading = false;
 							this.$swal.seccessMessage(
 								`Card ${card.name} purchased successfully`,
-							),
-						error: (err) => this.$swal.errorMessage(undefined, err),
+							);
+						},
+						error: (err) => {
+							this.$swal.errorMessage(undefined, err);
+							this.showLoading = false;
+						},
 					});
 				}
 			});
@@ -84,18 +96,20 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 	private transformData(cards: Card[]) {
 		const idHero = Array.from(new Set(cards.map((e) => e.idHero)));
-		this.groupCards = idHero.reduce((ant: CardGroupBy[], act: string) => {
-			const heroes = cards.filter((e) => e.idHero == act);
-			ant = [
-				...ant,
-				{
-					idHero: Number(act),
-					quantity: heroes.length,
-					hero: heroes[0],
-				},
-			];
-			return ant;
-		}, []).sort((a,b)=>a.hero.power-b.hero.power);
+		this.groupCards = idHero
+			.reduce((ant: CardGroupBy[], act: string) => {
+				const heroes = cards.filter((e) => e.idHero == act);
+				ant = [
+					...ant,
+					{
+						idHero: Number(act),
+						quantity: heroes.length,
+						hero: heroes[0],
+					},
+				];
+				return ant;
+			}, [])
+			.sort((a, b) => a.hero.power - b.hero.power);
 	}
 
 	logout(event: MouseEvent) {

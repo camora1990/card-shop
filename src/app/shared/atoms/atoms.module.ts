@@ -13,6 +13,7 @@ import { DropdownItemComponent } from './components/dropdown-item/dropdown-item.
 import { ImageComponent } from './components/image/image.component';
 import { TextComponent } from './components/text/text.component';
 import { BadgeComponent } from './components/badge/badge.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
 	declarations: [
@@ -28,6 +29,7 @@ import { BadgeComponent } from './components/badge/badge.component';
 		ImageComponent,
 		TextComponent,
 		BadgeComponent,
+		LoadingComponent,
 	],
 	imports: [CommonModule, RouterModule],
 	exports: [
@@ -43,6 +45,7 @@ import { BadgeComponent } from './components/badge/badge.component';
 		ImageComponent,
 		TextComponent,
 		BadgeComponent,
+		LoadingComponent,
 	],
 })
 export class AtomsModule {}
