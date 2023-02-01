@@ -1,0 +1,8 @@
+<app-avatar class="dropdown" [id]="labelledby" [image]="image"></app-avatar>
+
+<app-dropdown-item
+	class="dropdown-menu"
+	[attr.aria-labelledby]="labelledby"
+	[item]="item"
+	*ngFor="let item of menuItems"
+></app-dropdown-item>
