@@ -4,6 +4,8 @@ import { Card } from '../../../core/domain/entities/card.model';
 import { CardService } from '../../../core/services/card.service';
 import { Subscription, switchMap, tap } from 'rxjs';
 import { AuthService } from '../../../auth/services/auth.service';
+import { MenuModel } from '../../../core/domain/valueObject/menuModel';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-home',
@@ -13,19 +15,41 @@ import { AuthService } from '../../../auth/services/auth.service';
 export class HomeComponent implements OnInit, OnDestroy {
 	groupCards: CardGroupBy[] = [];
 	suscriptions: Subscription[] = [];
-	constructor(private $card: CardService, private auth: AuthService) {}
+	menu: MenuModel;
+	constructor(
+		private $card: CardService,
+		private $auth: AuthService,
+		private $route: Router,
+	) {
+		this.menu = {
+			brand: true,
+			imgBrand: '../../../../../assets/brand.png',
+			items: [
+				{
+					itemClass: 'nav-item',
+					placeHolder: 'Home',
+					router: '/card-shop',
+				},
+				{
+					itemClass: 'nav-item',
+					placeHolder: 'My deck',
+					router: '/card-shop',
+				},
+			],
+		};
+	}
 
 	ngOnDestroy(): void {
 		this.suscriptions.forEach((e) => e.unsubscribe());
 	}
 
 	ngOnInit(): void {
-		this.suscriptions.push(
-			this.$card
-				.getCards()
-				.pipe(tap((resp) => this.transformData(resp)))
-				.subscribe(),
-		);
+		// this.suscriptions.push(
+		// 	this.$card
+		// 		.getCards()
+		// 		.pipe(tap((resp) => this.transformData(resp)))
+		// 		.subscribe(),
+		// );
 	}
 
 	buyCard(card: Card) {
@@ -45,5 +69,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 		}, []);
 	}
 
-	
+	logout(event: MouseEvent) {
+		this.$auth.logout().subscribe({
+			next: () => this.$route.navigate(['/auth']),
+		});
+	}
 }

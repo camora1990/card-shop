@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { ShopRoutingModule } from './shop-routing.module';
 import { HomeComponent } from './pages/home/home.component';
+import { OrganismsModule } from '../../shared/organisms/organisms.module';
+import { AtomsModule } from '../../shared/atoms/atoms.module';
+import { MoleculesModule } from '../../shared/molecules/molecules.module';
 
 
 @NgModule({
@@ -11,7 +14,7 @@ import { HomeComponent } from './pages/home/home.component';
   ],
   imports: [
     CommonModule,
-    ShopRoutingModule
+    ShopRoutingModule,OrganismsModule,AtomsModule,MoleculesModule
   ]
 })
 export class ShopModule { }

@@ -1,5 +1,13 @@
 <div class="home">
 	<div class="container">
+		<app-nav-bar class="" [menuModel]="menu">
+			<app-button-icon
+				classBtn="primary-button"
+				(clickEvent)="logout($event)"
+				type="fa-solid"
+				iconClass="fa-power-off"
+			></app-button-icon>
+		</app-nav-bar>
 		<div *ngFor="let heroid of groupCards">
 			<div *ngFor="let cards of heroid | keyvalue">
 				<div *ngFor="let card of cards.value">
@@ -10,4 +18,3 @@
 		<router-outlet></router-outlet>
 	</div>
 </div>
-
