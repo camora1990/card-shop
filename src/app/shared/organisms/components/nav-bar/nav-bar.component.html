@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow bg-dark rounded">
+	<div class="container-fluid">
+		<app-brand
+			*ngIf="menuModel.brand"
+			[brandImage]="menuModel.imgBrand || ''"
+			[alt]="menuModel.imgBrand || ''"
+		></app-brand>
+		<app-icon-menu></app-icon-menu>
+		<app-menu
+			class="collapse navbar-collapse"
+			id="navbarSupportedContent"
+			[menuItems]="menuModel.items"
+			><ng-content></ng-content
+		></app-menu>
+		
+	</div>
+</nav>
