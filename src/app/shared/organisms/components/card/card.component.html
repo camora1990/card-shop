@@ -8,7 +8,7 @@
 	<div class="card-body bg-dark d-flex flex-column bd-highlight">
 		<app-title [size]="styles.fontSize" class="card-title" [label]="title"></app-title>
 		<app-subtitle *ngIf="subtitle != ''" [label]="subtitle"></app-subtitle>
-		<app-text class="mb-1" [text]="description"></app-text>
+		<app-text  class="mb-1" [text]="description"></app-text>
 		<ng-content class="d-block" ></ng-content>
 	</div>
 </div>
