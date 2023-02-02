@@ -6,8 +6,8 @@ import { Subject } from 'rxjs';
 })
 export class LoadingService {
 
-  loading: Subject<boolean> = new Subject()
+  showLoading: Subject<boolean> = new Subject()
   constructor() {
-    this.loading.next(false)
+    this.showLoading.next(false)
    }
 }
