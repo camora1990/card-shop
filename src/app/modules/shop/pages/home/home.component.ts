@@ -67,4 +67,8 @@ export class HomeComponent implements OnInit {
 	public get currentUser(): UserModel | null {
 		return this.user;
 	}
+
+	navigate(event:MouseEvent){
+		this.$route.navigate(['/card-shop/profile'])
+	}
 }

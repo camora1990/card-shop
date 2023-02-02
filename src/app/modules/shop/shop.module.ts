@@ -8,6 +8,7 @@ import { AtomsModule } from '../../shared/atoms/atoms.module';
 import { MoleculesModule } from '../../shared/molecules/molecules.module';
 import { MyDeckComponent } from './pages/my-deck/my-deck.component';
 import { CardShopComponent } from './pages/card-shop/card-shop.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 
@@ -16,6 +17,7 @@ import { CardShopComponent } from './pages/card-shop/card-shop.component';
     HomeComponent,
     MyDeckComponent,
     CardShopComponent,
+    ProfileComponent,
     
   ],
   imports: [

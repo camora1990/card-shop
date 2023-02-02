@@ -3,6 +3,7 @@
 		<app-nav-bar [menuModel]="menu">
 			<div class="d-flex align-items-center">
 				<app-avatar
+					(eventClick)="navigate($event)"
 					class="me-3"
 					[image]="currentUser?.avatar || ''"
 				></app-avatar>

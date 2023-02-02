@@ -13,6 +13,7 @@ export class CardComponent implements OnInit {
   @Input() hasImage: boolean = true
   @Input() src: string = ''
   @Input() alt: string = 'card-image'
+  @Input() heightImage: string = ''
   styles!: { color: string; fontSize: string; fontWeight: string; } ;
   @Input() description: string = ''
   constructor() { }
