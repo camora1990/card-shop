@@ -12,4 +12,8 @@ export class ISODate {
 	public static now(): ISODate {
 		return new ISODate(new Date().toISOString());
 	}
+
+	public static verifyDate(first: string, second: string) {
+		return this.toDate(first).getDate() === this.toDate(second).getDate();
+	}
 }
