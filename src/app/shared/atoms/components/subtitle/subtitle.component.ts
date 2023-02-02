@@ -12,7 +12,7 @@ interface Style {
 })
 export class SubtitleComponent implements OnInit {
 	@Input() label: string = 'Title';
-	@Input() size: string = '3rem';
+	@Input() size: string = '1.5rem';
 	@Input() fontWeght: string = '700';
 	@Input() color: string = '#d9d6d1';
 	styles: Style | Object = {};
