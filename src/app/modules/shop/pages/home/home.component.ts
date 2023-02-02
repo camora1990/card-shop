@@ -1,15 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CardGroupBy } from 'src/app/modules/core/domain/entities/cardGroupBy.model';
-import { Card } from '../../../core/domain/entities/card.model';
-import { CardService } from '../../../core/services/card.service';
-import { Subscription, tap } from 'rxjs';
-import { AuthService } from '../../../auth/services/auth.service';
-import { MenuModel } from '../../../core/domain/valueObject/menuModel';
-import { Router } from '@angular/router';
-import { MenuItem } from '../../../core/domain/valueObject/menuItem.model';
+import { Component, OnInit } from '@angular/core';
 import { User } from '@angular/fire/auth';
-import { UserService } from '../../../core/services/user.service';
-import { SweetAlertService } from '../../../core/services/sweet-alert.service';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { MenuModel } from 'src/app/modules/core/domain/valueObject/menuModel';
+import { UserService } from 'src/app/modules/core/services/user.service';
+
 import { LoadingService } from '../../../core/services/loading.service';
 
 @Component({
@@ -17,19 +12,14 @@ import { LoadingService } from '../../../core/services/loading.service';
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
-	groupCards: CardGroupBy[] = [];
-	suscriptions: Subscription[] = [];
+export class HomeComponent implements OnInit {
+	showLoading: boolean = false;
 	menu: MenuModel;
-	configMenu: MenuItem[] = [];
-	showLoading: boolean = true;
 	constructor(
-		private $card: CardService,
+		private $loading: LoadingService,
 		private $auth: AuthService,
 		private $user: UserService,
 		private $route: Router,
-		private $swal: SweetAlertService,
-		private $loading: LoadingService,
 	) {
 		this.menu = {
 			brand: true,
@@ -43,7 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 				{
 					itemClass: 'nav-item',
 					placeHolder: 'My deck',
-					router: '',
+					router: '/card-shop/my-deck',
 				},
 				{
 					itemClass: 'nav-item',
@@ -54,62 +44,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 		};
 	}
 
-	ngOnDestroy(): void {
-		this.suscriptions.forEach((e) => e.unsubscribe());
-	}
-
 	ngOnInit(): void {
 		this.$loading.loading.subscribe((value) => {
 			this.showLoading = value;
 		});
-		this.suscriptions.push(
-			this.$card
-				.getCards()
-				.pipe(tap((resp) => this.transformData(resp)))
-				.subscribe(() => (this.showLoading = false)),
-		);
-	}
-
-	buyCard(card: Card) {
-		
-		this.$swal
-			.confirmDialog()
-			.then()
-			.then((result) => {
-				if (result.isConfirmed) {
-					this.showLoading = true;
-					this.$card.buyCard(card).subscribe({
-						next: () => {
-							this.showLoading = false;
-							this.$swal.seccessMessage(
-								`Card ${card.name} purchased successfully`,
-							);
-						},
-						error: (err) => {
-							this.$swal.errorMessage(undefined, err);
-							this.showLoading = false;
-						},
-					});
-				}
-			});
-	}
-
-	private transformData(cards: Card[]) {
-		const idHero = Array.from(new Set(cards.map((e) => e.idHero)));
-		this.groupCards = idHero
-			.reduce((ant: CardGroupBy[], act: string) => {
-				const heroes = cards.filter((e) => e.idHero == act);
-				ant = [
-					...ant,
-					{
-						idHero: Number(act),
-						quantity: heroes.length,
-						hero: heroes[0],
-					},
-				];
-				return ant;
-			}, [])
-			.sort((a, b) => a.hero.power - b.hero.power);
 	}
 
 	logout(event: MouseEvent) {

@@ -1,0 +1,27 @@
+<app-title class="text-center" label="My deck"></app-title>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+	<app-card
+		*ngFor="let item of groupCards"
+		[title]="item.hero.name"
+		[alt]="item.hero.name"
+		[description]="item.hero.description"
+		[hasImage]="true"
+		[src]="item.hero.imageUrl"
+		class="col"
+	>
+		<div class="mt-2">
+			<app-badge
+				classBadge="bg-success me-3"
+				[placeHolder]="'Price $' + item.hero.price"
+			></app-badge>
+			<app-badge
+				classBadge="bg-primary me-3"
+				[placeHolder]="'Total ' + item.quantity"
+			></app-badge>
+			<app-badge
+				classBadge="bg-danger me-3"
+				[placeHolder]="'Power ' + item.hero.power"
+			></app-badge>
+		</div>
+	</app-card>
+</div>
