@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
 				{
 					itemClass: 'nav-item',
 					placeHolder: 'Home',
-					router: '/card-shop',
+					router: '/card-shop/marvel',
 				},
 				{
 					itemClass: 'nav-item',
