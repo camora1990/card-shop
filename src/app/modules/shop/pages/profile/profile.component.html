@@ -1,5 +1,5 @@
 <div
-	class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3 d-flex justify-content-center"
+	class="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-3 d-flex justify-content-center"
 >
 	<app-card
 		[title]="'Profile'"
@@ -12,11 +12,12 @@
 		<div other class="d-flex align-items-center">
 			<app-avatar
 				[alt]="user?.username || ''"
-				[image]="user?.avatar || ''"
+				[image]="user?.avatar || '/assets/profileDefault.png'"
 				class="me-3"
 			></app-avatar>
 			<app-subtitle
 				[size]="'1.2rem'"
+				class="text-start"
 				[label]="user?.username || '' | titlecase"
 			></app-subtitle>
 		</div>
@@ -37,7 +38,7 @@
 				type="fa-solid"
 				iconClass="fa-money-check-dollar"
 				placeholder="Recharge"
-                (clickEvent)="click($event)"
+                (clickEvent)="recharge()"
 			></app-button-icon>
 		</div>
 	</app-card>

@@ -7,8 +7,8 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class AvatarComponent implements OnInit {
 
-  @Input() classImg: string='dropdown-toggle'
-  @Input() id: string ="dropdownMenu2"
+  @Input() classImg: string=''
+  @Input() id: string =""
   @Input() alt:string ="avatar"
   @Input() image: string =''
   @Output() eventClick: EventEmitter<MouseEvent> = new EventEmitter()
