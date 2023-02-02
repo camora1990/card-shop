@@ -3,12 +3,14 @@
 		[classImage]="classImage"
 		[src]="src"
 		[alt]="alt"
+		[height]="heightImage"
 		*ngIf="hasImage"
 	></app-image>
 	<div class="card-body bg-dark d-flex flex-column bd-highlight">
+		<ng-content [select]="other"></ng-content>
 		<app-title [size]="styles.fontSize" class="card-title" [label]="title"></app-title>
 		<app-subtitle *ngIf="subtitle != ''" [label]="subtitle"></app-subtitle>
 		<app-text  class="mb-1" [text]="description"></app-text>
-		<ng-content class="d-block" ></ng-content>
+		<ng-content class="d-block"  [select]="footer" ></ng-content>
 	</div>
 </div>

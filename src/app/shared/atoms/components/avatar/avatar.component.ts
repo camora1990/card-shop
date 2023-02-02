@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-avatar',
@@ -11,9 +11,14 @@ export class AvatarComponent implements OnInit {
   @Input() id: string ="dropdownMenu2"
   @Input() alt:string ="avatar"
   @Input() image: string =''
+  @Output() eventClick: EventEmitter<MouseEvent> = new EventEmitter()
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  click(event:MouseEvent){
+    this.eventClick.emit(event)
   }
 
 }
