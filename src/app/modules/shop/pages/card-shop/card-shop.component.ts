@@ -5,6 +5,7 @@ import { CardService } from '../../../core/services/card.service';
 import { Subscription, tap } from 'rxjs';
 import { SweetAlertService } from '../../../core/services/sweet-alert.service';
 import { LoadingService } from '../../../core/services/loading.service';
+import TransformCard from 'src/app/modules/core/utils/transformCards';
 
 @Component({
 	selector: 'app-card-shop',
@@ -29,7 +30,13 @@ export class CardShopComponent implements OnInit, OnDestroy {
 		this.suscriptions.push(
 			this.$card
 				.getCards()
-				.pipe(tap((resp) => this.transformData(resp)))
+				.pipe(
+					tap(
+						(resp) =>
+							(this.groupCards =
+								TransformCard.transformData(resp)),
+					),
+				)
 				.subscribe(() => this.$loading.loading.next(false)),
 		);
 	}
@@ -44,32 +51,14 @@ export class CardShopComponent implements OnInit, OnDestroy {
 							.seccessMessage(
 								`Card ${card.name} purchased successfully`,
 							)
-							.then(() => (this.$loading.loading.next(false)));
+							.then(() => this.$loading.loading.next(false));
 					},
 					error: (err) => {
 						this.$swal.errorMessage(undefined, err);
-						this.$loading.loading.next(false)
+						this.$loading.loading.next(false);
 					},
 				});
 			}
 		});
-	}
-
-	private transformData(cards: Card[]) {
-		const idHero = Array.from(new Set(cards.map((e) => e.idHero)));
-		this.groupCards = idHero
-			.reduce((ant: CardGroupBy[], act: string) => {
-				const heroes = cards.filter((e) => e.idHero == act);
-				ant = [
-					...ant,
-					{
-						idHero: Number(act),
-						quantity: heroes.length,
-						hero: heroes[0],
-					},
-				];
-				return ant;
-			}, [])
-			.sort((a, b) => a.hero.power - b.hero.power);
 	}
 }
