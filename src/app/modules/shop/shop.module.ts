@@ -7,12 +7,16 @@ import { OrganismsModule } from '../../shared/organisms/organisms.module';
 import { AtomsModule } from '../../shared/atoms/atoms.module';
 import { MoleculesModule } from '../../shared/molecules/molecules.module';
 import { MyDeckComponent } from './pages/my-deck/my-deck.component';
+import { CardShopComponent } from './pages/card-shop/card-shop.component';
+
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    MyDeckComponent
+    MyDeckComponent,
+    CardShopComponent,
+    
   ],
   imports: [
     CommonModule,

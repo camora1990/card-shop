@@ -14,48 +14,7 @@
 				></app-icon>
 			</div>
 		</app-nav-bar>
-		<app-title
-			label="Marvel card shop"
-			class="text-center mt-5"
-		></app-title>
-		<div
-			class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4"
-		>
-			<app-card
-				*ngFor="let item of groupCards"
-				[title]="item.hero.name"
-				[alt]="item.hero.name"
-				[description]="item.hero.description"
-				[hasImage]="true"
-				[src]="item.hero.imageUrl"
-				class="col"
-			>
-				<div class="mt-2">
-					<app-badge
-						classBadge="bg-success me-3"
-						[placeHolder]="'Price $' + item.hero.price"
-					></app-badge>
-					<app-badge
-						classBadge="bg-primary me-3"
-						[placeHolder]="'Available ' + item.quantity"
-					></app-badge>
-					<app-badge
-						classBadge="bg-danger me-3"
-						[placeHolder]="'Power ' + item.hero.power"
-					></app-badge>
-				</div>
-				<div class="col-12 mt-auto p-3 bd-highlight">
-					<app-button-icon
-					(clickEvent)="buyCard(item.hero)"
-						type="fa-solid"
-						iconClass="fa-cart-shopping"
-						placeholder="Buy"
-					></app-button-icon>
-				</div>
-			</app-card>
-		</div>
-		<router-outlet></router-outlet>
+		<router-outlet> </router-outlet>
 	</div>
 </div>
-
 <app-loading *ngIf="showLoading"></app-loading>
