@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 				{
 					itemClass: 'nav-item',
 					placeHolder: 'My deck',
-					router: '',
+					router: '/card-shop/my-deck',
 				},
 				{
 					itemClass: 'nav-item',
