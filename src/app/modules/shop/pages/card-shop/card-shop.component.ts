@@ -65,6 +65,7 @@ export class CardShopComponent implements OnInit, OnDestroy {
 					},
 				});
 			}
+			this.$loading.showLoading.next(false);
 		});
 	}
 }

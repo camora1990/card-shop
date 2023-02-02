@@ -1,10 +1,10 @@
 <div class="home">
-	<div class="container position-relative">
+	<div class="container position-relative pb-5">
 		<app-nav-bar [menuModel]="menu">
 			<div class="d-flex align-items-center">
 				<app-avatar
 					class="me-3"
-					[image]="currentUser?.photoURL || ''"
+					[image]="currentUser?.avatar || ''"
 				></app-avatar>
 				<app-icon
 					class="me-3"
