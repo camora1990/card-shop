@@ -60,6 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.$loading.loading.subscribe((value) => {
+			debugger;
 			this.showLoading = value;
 		});
 		this.suscriptions.push(
@@ -71,27 +72,23 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	buyCard(card: Card) {
-		
-		this.$swal
-			.confirmDialog()
-			.then()
-			.then((result) => {
-				if (result.isConfirmed) {
-					this.showLoading = true;
-					this.$card.buyCard(card).subscribe({
-						next: () => {
-							this.showLoading = false;
-							this.$swal.seccessMessage(
+		this.showLoading = true;
+		this.$swal.confirmDialog().then((result) => {
+			if (result.isConfirmed) {
+				this.$card.buyCard(card).subscribe({
+					next: () => {
+						this.$swal
+							.seccessMessage(
 								`Card ${card.name} purchased successfully`,
-							);
-						},
-						error: (err) => {
-							this.$swal.errorMessage(undefined, err);
-							this.showLoading = false;
-						},
-					});
-				}
-			});
+							)
+							.then(() => (this.showLoading = false));
+					},
+					error: (err) => {
+						this.$swal.errorMessage(undefined, err);
+					},
+				});
+			}
+		});
 	}
 
 	private transformData(cards: Card[]) {
