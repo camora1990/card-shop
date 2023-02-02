@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { MyDeckComponent } from './pages/my-deck/my-deck.component';
 import { CardShopComponent } from './pages/card-shop/card-shop.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
 	{
@@ -13,6 +14,10 @@ const routes: Routes = [
 				path: '',
 				pathMatch: 'full',
 				redirectTo: '/card-shop/marvel',
+			},
+			{
+				path: 'profile',
+				component: ProfileComponent,
 			},
 			{
 				path: 'marvel',
