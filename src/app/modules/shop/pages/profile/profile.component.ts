@@ -29,6 +29,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	}
 
 	click(event: MouseEvent) {
-		this.$route.navigate(['/card-shop']);
+		this.$route.navigate(['/card-shop/recharge']);
 	}
 }

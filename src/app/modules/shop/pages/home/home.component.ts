@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
 				{
 					itemClass: 'nav-item',
 					placeHolder: 'Recharge',
-					router: '',
+					router: '/card-shop/recharge',
 				},
 			],
 		};

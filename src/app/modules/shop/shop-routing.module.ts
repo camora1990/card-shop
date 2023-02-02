@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { MyDeckComponent } from './pages/my-deck/my-deck.component';
 import { CardShopComponent } from './pages/card-shop/card-shop.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { RechargeComponent } from './pages/recharge/recharge.component';
 
 const routes: Routes = [
 	{
@@ -27,6 +28,10 @@ const routes: Routes = [
 			{
 				path: 'my-deck',
 				component: MyDeckComponent,
+			},
+			{
+				path: 'recharge',
+				component: RechargeComponent,
 			},
 			{
 				path: '**',
