@@ -9,12 +9,7 @@ import {
 	where,
 } from '@angular/fire/firestore';
 
-import {
-	collection,
-	DocumentReference,
-	query,
-	orderBy,
-} from '@firebase/firestore';
+import { collection, DocumentReference, query } from '@firebase/firestore';
 import { uuidv4 } from '@firebase/util';
 import {
 	Observable,
@@ -33,6 +28,7 @@ import { HistoryType } from '../domain/enums/historyType.model';
 import { UserModel } from '../domain/entities/user.model';
 import { LogService } from './log.service';
 import { LogTypes } from '../domain/enums/logTypes.model';
+import { BusinessError } from '../utils/businessError';
 
 @Injectable({
 	providedIn: 'root',
@@ -51,7 +47,7 @@ export class CardService {
 	public getCards(): Observable<Card[]> {
 		const query_cards = query(
 			this.refCards,
-			where('activeForSale', '==', true)
+			where('activeForSale', '==', true),
 		);
 
 		return collectionData(query_cards) as unknown as Observable<Card[]>;
@@ -63,7 +59,9 @@ export class CardService {
 			take(1),
 			switchMap((user) => {
 				if (user[0].balance < card.price)
-					return throwError(() => `Not enough balance`);
+					return throwError(() => {
+						throw new BusinessError(`Not enough balance`);
+					});
 				return of(user);
 			}),
 			switchMap((user) => {
@@ -115,6 +113,6 @@ export class CardService {
 			);
 		}
 
-		return throwError(() => `Card not available for purchase`);
+		return throwError(() =>{throw new BusinessError(`Card not available for purchase`)});
 	}
 }

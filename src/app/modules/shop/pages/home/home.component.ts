@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.$loading.loading.subscribe((value) => {
+		this.$loading.showLoading.subscribe((value) => {
 			this.showLoading = value;
 		});
 	}

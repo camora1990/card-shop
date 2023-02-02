@@ -6,6 +6,7 @@ import { Subscription, tap } from 'rxjs';
 import { SweetAlertService } from '../../../core/services/sweet-alert.service';
 import { LoadingService } from '../../../core/services/loading.service';
 import TransformCard from 'src/app/modules/core/utils/transformCards';
+import { ResponseError } from 'src/app/modules/core/utils/responseError';
 
 @Component({
 	selector: 'app-card-shop',
@@ -18,6 +19,7 @@ export class CardShopComponent implements OnInit, OnDestroy {
 	constructor(
 		private $card: CardService,
 		private $swal: SweetAlertService,
+		private $responseError: ResponseError,
 		private $loading: LoadingService,
 	) {}
 
@@ -26,7 +28,7 @@ export class CardShopComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.$loading.loading.next(true);
+		this.$loading.showLoading.next(true);
 		this.suscriptions.push(
 			this.$card
 				.getCards()
@@ -37,12 +39,17 @@ export class CardShopComponent implements OnInit, OnDestroy {
 								TransformCard.transformData(resp)),
 					),
 				)
-				.subscribe(() => this.$loading.loading.next(false)),
+				.subscribe({
+					next: () => this.$loading.showLoading.next(false),
+					error: (err) => {
+						this.$responseError.Error(err);
+					},
+				}),
 		);
 	}
 
 	buyCard(card: Card) {
-		this.$loading.loading.next(true);
+		this.$loading.showLoading.next(true);
 		this.$swal.confirmDialog().then((result) => {
 			if (result.isConfirmed) {
 				this.$card.buyCard(card).subscribe({
@@ -51,11 +58,10 @@ export class CardShopComponent implements OnInit, OnDestroy {
 							.seccessMessage(
 								`Card ${card.name} purchased successfully`,
 							)
-							.then(() => this.$loading.loading.next(false));
+							.then(() => this.$loading.showLoading.next(false));
 					},
 					error: (err) => {
-						this.$swal.errorMessage(undefined, err);
-						this.$loading.loading.next(false);
+						this.$responseError.Error(err);
 					},
 				});
 			}
