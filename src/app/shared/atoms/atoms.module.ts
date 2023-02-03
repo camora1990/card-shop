@@ -15,7 +15,6 @@ import { TextComponent } from './components/text/text.component';
 import { BadgeComponent } from './components/badge/badge.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { InputComponent } from './components/input/input.component';
-import { LabelComponent } from './components/label/label.component';
 import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
 	declarations: [
@@ -33,7 +32,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 		BadgeComponent,
 		LoadingComponent,
 		InputComponent,
-		LabelComponent,
 	],
 	imports: [CommonModule, RouterModule, ReactiveFormsModule],
 	exports: [
