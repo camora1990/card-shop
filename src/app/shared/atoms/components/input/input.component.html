@@ -1,0 +1,15 @@
+<div class="form__group field w-100">
+	<input
+		(input)="validateInput($event)"
+		autocomplete="off"
+		[name]="name"
+		[formControl]="inputControl"
+		required=""
+		[placeholder]="placeHolder"
+		class="form__field"
+		[type]="type"
+	/>
+	<label class="form__label" [for]="name">{{ placeHolder }}</label>
+	<span class="text-danger" *ngIf="isInvalidFiel">{{ errorMessage }}</span>
+</div>
+
