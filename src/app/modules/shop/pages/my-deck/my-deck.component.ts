@@ -16,11 +16,12 @@ export class MyDeckComponent implements OnInit {
 	constructor(
 		private $user: UserService,
 		private $loading: LoadingService,
-		private $responseError: ResponseError
-	) {}
+		private $responseError: ResponseError,
+	) {
+		this.$loading.showLoading.next(true);
+	}
 
 	ngOnInit(): void {
-		this.$loading.showLoading.next(true);
 		this.$user
 			.getUser(this.$user.currenUser?.uid!)
 			.pipe(
@@ -36,7 +37,7 @@ export class MyDeckComponent implements OnInit {
 					this.$loading.showLoading.next(false);
 				},
 				error: (err) => {
-					this.$responseError.Error(err)
+					this.$responseError.Error(err);
 				},
 			});
 	}

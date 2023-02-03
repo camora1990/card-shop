@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
@@ -15,7 +15,7 @@ import { UserModel } from '../../../core/domain/entities/user.model';
 	styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-	showLoading: boolean = false;
+	showLoading: boolean = true;
 	menu: MenuModel;
 	user!: UserModel;
 	constructor(
@@ -41,21 +41,24 @@ export class HomeComponent implements OnInit {
 				{
 					itemClass: 'nav-item',
 					placeHolder: 'Recharge',
-					router: '',
+					router: '/card-shop/recharge',
 				},
 			],
 		};
-	}
-
-	ngOnInit(): void {
 		this.$loading.showLoading.subscribe((value) => {
 			this.showLoading = value;
 		});
-		this.$user.getUser(this.$user.currenUser?.uid!).pipe(
-			tap((user) => {
-				this.user = user[0];
-			}),
-		).subscribe();
+	}
+
+	ngOnInit(): void {
+		this.$user
+			.getUser(this.$user.currenUser?.uid!)
+			.pipe(
+				tap((user) => {
+					this.user = user[0];
+				}),
+			)
+			.subscribe();
 	}
 
 	logout(event: MouseEvent) {
@@ -68,7 +71,7 @@ export class HomeComponent implements OnInit {
 		return this.user;
 	}
 
-	navigate(event:MouseEvent){
-		this.$route.navigate(['/card-shop/profile'])
+	navigate(event: MouseEvent) {
+		this.$route.navigate(['/card-shop/profile']);
 	}
 }

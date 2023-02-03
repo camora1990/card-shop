@@ -21,14 +21,15 @@ export class CardShopComponent implements OnInit, OnDestroy {
 		private $swal: SweetAlertService,
 		private $responseError: ResponseError,
 		private $loading: LoadingService,
-	) {}
+	) {
+		this.$loading.showLoading.next(true);
+	}
 
 	ngOnDestroy(): void {
 		this.suscriptions.forEach((e) => e.unsubscribe());
 	}
 
 	ngOnInit(): void {
-		this.$loading.showLoading.next(true);
 		this.suscriptions.push(
 			this.$card
 				.getCards()

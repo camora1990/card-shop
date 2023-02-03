@@ -29,6 +29,10 @@ const routes: Routes = [
 				component: MyDeckComponent,
 			},
 			{
+				path: 'recharge',
+				component: ProfileComponent,
+			},
+			{
 				path: '**',
 				redirectTo: 'card-shop',
 			},

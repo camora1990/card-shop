@@ -1,5 +1,5 @@
 <div
-	class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3 d-flex justify-content-center"
+	class="row row-cols-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-3 g-3 d-flex justify-content-center"
 >
 	<app-card
 		[title]="'Profile'"
@@ -12,11 +12,12 @@
 		<div other class="d-flex align-items-center">
 			<app-avatar
 				[alt]="user?.username || ''"
-				[image]="user?.avatar || ''"
+				[image]="user?.avatar || '/assets/profileDefault.png'"
 				class="me-3"
 			></app-avatar>
 			<app-subtitle
 				[size]="'1.2rem'"
+				class="text-start"
 				[label]="user?.username || '' | titlecase"
 			></app-subtitle>
 		</div>
@@ -25,20 +26,36 @@
 				type="fa-solid"
 				class="me-2"
 				iconClass="fa-sack-dollar fs-5"
-                color="#85bb65"
+				color="#85bb65"
 			></app-icon>
 			<app-text
 				[classText]="'fw-bold fs-5'"
 				[text]="'$' + user?.balance || ''"
 			></app-text>
 		</div>
-		<div class="col-12 mt-auto p-3 bd-highlight">
-			<app-button-icon
-				type="fa-solid"
-				iconClass="fa-money-check-dollar"
-				placeholder="Recharge"
-                (clickEvent)="click($event)"
-			></app-button-icon>
-		</div>
+		<app-text
+			*ngIf="availableAmount == 0; else rechargeForm"
+			[classText]="'text-danger'"
+			text="You have no more recharges available for today"
+		></app-text>
+		<ng-template #rechargeForm >
+			<div
+				class="row row-cols-1 row-cols-sm-2 row-cols-lg-2 g-3 d-flex justify-content-center pb-4"
+			>
+				<app-input
+					(inputData)="validAmount($event)"
+					[inputControl]="amountControl"
+					[type]="'number'"
+					[name]="nameControl"
+					[placeHolder]="nameControl"
+				></app-input>
+				<app-button-icon
+					type="fa-solid"
+					iconClass="fa-money-check-dollar"
+					placeholder="Recharge"
+					(clickEvent)="recharge()"
+				></app-button-icon>
+			</div>
+		</ng-template>
 	</app-card>
 </div>
