@@ -14,6 +14,7 @@ export class CardComponent implements OnInit {
   @Input() src: string = ''
   @Input() alt: string = 'card-image'
   @Input() heightImage: string = ''
+  @Input() fontfontSizeTitle: string="1.5rem"
   styles!: { color: string; fontSize: string; fontWeight: string; } ;
   @Input() description: string = ''
   constructor() { }
@@ -21,7 +22,7 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {
     this.styles = {
 			color: "#E55151",
-			fontSize: "1.5rem",
+			fontSize: this.fontfontSizeTitle,
 			fontWeight: "500",
 		};
   }
