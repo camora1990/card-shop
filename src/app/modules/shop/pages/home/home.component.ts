@@ -1,13 +1,14 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { tap, throwError, switchMap, of } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { MenuModel } from 'src/app/modules/core/domain/valueObject/menuModel';
 import { UserService } from 'src/app/modules/core/services/user.service';
 
 import { LoadingService } from '../../../core/services/loading.service';
 import { UserModel } from '../../../core/domain/entities/user.model';
+import { ResponseError } from '../../../core/utils/responseError';
 
 @Component({
 	selector: 'app-home',
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
 		private $auth: AuthService,
 		private $user: UserService,
 		private $route: Router,
+		private $responseError: ResponseError
 	) {
 		this.menu = {
 			brand: true,
@@ -54,11 +56,17 @@ export class HomeComponent implements OnInit {
 		this.$user
 			.getUser(this.$user.currenUser?.uid!)
 			.pipe(
-				tap((user) => {
-					this.user = user[0];
+				switchMap((user) => {
+					if (user.length >0) {
+						return of(this.user = user[0]);
+					}else{
+						return throwError(()=>`Login required`)
+					}
 				}),
 			)
-			.subscribe();
+			.subscribe({
+				error: (err)=> this.$responseError.Error(err)
+			});
 	}
 
 	logout(event: MouseEvent) {

@@ -1,25 +1,24 @@
 <app-title class="text-center" label="My deck"></app-title>
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g3">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3">
 	<app-card
 		*ngFor="let item of groupCards"
 		[title]="item.hero.name"
 		[alt]="item.hero.name"
-		[description]="item.hero.description"
 		[hasImage]="true"
 		[src]="item.hero.imageUrl"
 		class="col"
 	>
-		<div class="mt-2">
+		<div class="mt-2 d-flex justify-content-start g-2">
 			<app-badge
-				classBadge="bg-success me-3"
+				classBadge="bg-success me-1"
 				[placeHolder]="'Price $' + item.hero.price"
 			></app-badge>
 			<app-badge
-				classBadge="bg-primary me-3"
+				classBadge="bg-primary me-1"
 				[placeHolder]="'Total ' + item.quantity"
 			></app-badge>
 			<app-badge
-				classBadge="bg-danger me-3"
+				classBadge="bg-danger me-1"
 				[placeHolder]="'Power ' + item.hero.power"
 			></app-badge>
 		</div>

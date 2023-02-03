@@ -19,6 +19,12 @@ export class SweetAlertService {
 			showConfirmButton: false,
 			timer: timer,
 			background: this.background,
+			showClass: {
+				popup: 'animate__animated animate__fadeInDown'
+			  },
+			  hideClass: {
+				popup: 'animate__animated animate__fadeOutUp'
+			  }
 		});
 	}
 
@@ -37,6 +43,12 @@ export class SweetAlertService {
 			cancelButtonColor: '#d33',
 			confirmButtonText: confirmButtonText,
 			background: `${this.background} url(/assets/musellpage-masthead-dsk.6c842245.jpg) no-repeat`,
+			showClass: {
+				popup: 'animate__animated animate__fadeInDown'
+			  },
+			  hideClass: {
+				popup: 'animate__animated animate__fadeOutUp'
+			  }
 		});
 	}
 	errorMessage(
@@ -51,6 +63,12 @@ export class SweetAlertService {
 			background: `${this.background} url(/assets/captain-america-char.4b7f4c07.png) no-repeat`,
 			color: '#ffffff',
 			confirmButtonColor: 'rgb(185 28 28)',
+			showClass: {
+				popup: 'animate__animated animate__fadeInDown'
+			  },
+			  hideClass: {
+				popup: 'animate__animated animate__fadeOutUp'
+			  }
 		});
 	}
 }
