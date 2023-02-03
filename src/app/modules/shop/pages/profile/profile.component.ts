@@ -49,6 +49,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 				.getUser(this.$user.currenUser?.uid!)
 				.pipe(
 					tap((user) => {
+						debugger
 						this.user = user[0];
 						this.availableAmount =
 							this.maxAmount -

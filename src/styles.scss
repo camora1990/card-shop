@@ -46,9 +46,12 @@ i {
 
 .card {
 	clip-path: polygon(0 0, 100% 0, 100% 90%, 94% 100%, 25% 100%, 0 100%);
-
+  border-bottom: 3px solid rgb(255 255 255 / 44%);
+  border-left: 2px rgba(255, 255, 255, 0.545) outset;
+  box-shadow: -40px 50px 30px rgb(0 0 0 / 28%);
 
 }
+
 
 .swal2-container, .swal2-center {
 	z-index: 5000000 !important;
