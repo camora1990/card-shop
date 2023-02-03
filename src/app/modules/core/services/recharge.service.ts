@@ -6,7 +6,7 @@ import {
 	setDoc,
 } from '@angular/fire/firestore';
 import { collection } from '@firebase/firestore';
-import { from, Observable,switchMap, of, zip } from 'rxjs';
+import { from, Observable, switchMap, of, zip } from 'rxjs';
 import { Recharge } from '../domain/entities/recharge.model';
 import { UserModel } from '../domain/entities/user.model';
 import { ISODate } from '../domain/valueObject/date.model';
@@ -26,34 +26,45 @@ export class RechargeService {
 	public createRecharge(
 		recharge: Recharge,
 		user: UserModel,
-	): Observable<[void,void]> {
+	): Observable<[void, void]> {
 		const ref = doc(this.rechargeRef, recharge.uid);
-		return of(true).pipe(switchMap(()=>{
-			const newMount = this.validateRecharge(user,recharge)
-			user.recharges.push(recharge);
-			user.balance = newMount
-			return zip(from(setDoc(ref, recharge)),from(this.$user.updateUser(user)))
-		}))
-		
+		return of(true).pipe(
+			switchMap(() => {
+				const newMount = this.validateRecharge(user, recharge);
+				user.recharges.push(recharge);
+				user.balance = newMount;
+				return zip(
+					from(setDoc(ref, recharge)),
+					from(this.$user.updateUser(user)),
+				);
+			}),
+		);
 	}
 
-	private validateRecharge(user: UserModel, recharge: Recharge) {
+	
+	public totalRechargeToday(user: UserModel) : number {
 		const now = ISODate.now().ISOString;
+		return user.recharges
+		.filter((e) => ISODate.verifyDate(e.performedAt, now))
+		.reduce((back, current) => (back += current.amount), 0);
 
-		const totalRechargeToday = user.recharges
-			.filter((e) => ISODate.verifyDate(e.performedAt, now))
-			.reduce((back, current) => (back += current.amount), 0);
+	}
+	
 
-		if (totalRechargeToday >= 200)
+	private validateRecharge(user: UserModel, recharge: Recharge) {
+	
+
+		const rechargeToday = this.totalRechargeToday(user)
+
+		if (rechargeToday >= 200)
 			throw new BusinessError(
 				'You have already exceeded the maximum amount of money recharge per day',
 			);
-		const newTotal = totalRechargeToday + recharge.amount;
+		const newTotal = rechargeToday + recharge.amount;
 		if (newTotal > 200)
 			throw new BusinessError(`The maximum amount to recharge is 
-    ${200 - totalRechargeToday}`);
+    ${200 - rechargeToday}`);
 
-
-    return newTotal
+		return newTotal;
 	}
 }
