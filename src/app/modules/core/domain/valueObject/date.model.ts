@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export class ISODate {
 	public ISOString: string;
 
@@ -14,6 +16,9 @@ export class ISODate {
 	}
 
 	public static verifyDate(first: string, second: string) {
-		return this.toDate(first).getDate() === this.toDate(second).getDate();
+		return (
+			moment(this.toDate(first).toISOString()).format('MM-DD-YYYY') ===
+			moment(this.toDate(second).toISOString()).format('MM-DD-YYYY')
+		);
 	}
 }

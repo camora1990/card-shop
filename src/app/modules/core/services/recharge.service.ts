@@ -32,7 +32,7 @@ export class RechargeService {
 			switchMap(() => {
 				const newMount = this.validateRecharge(user, recharge);
 				user.recharges.push(recharge);
-				user.balance = newMount;
+				user.balance += newMount;
 				return zip(
 					from(setDoc(ref, recharge)),
 					from(this.$user.updateUser(user)),
@@ -52,7 +52,6 @@ export class RechargeService {
 	
 
 	private validateRecharge(user: UserModel, recharge: Recharge) {
-	
 
 		const rechargeToday = this.totalRechargeToday(user)
 
