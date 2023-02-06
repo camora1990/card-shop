@@ -2,6 +2,7 @@
 	<div class="container position-relative pb-5">
 		<app-nav-bar [menuModel]="menu">
 			<div class="d-flex align-items-center">
+				<app-badge [classBadge]="'bg-success fs-6'" [placeHolder]="'💰'+' $'+currentUser?.balance" class="me-3"></app-badge>
 				<app-avatar
 					(eventClick)="navigate($event)"
 					class="me-3"
