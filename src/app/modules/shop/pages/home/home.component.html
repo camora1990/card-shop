@@ -1,0 +1,22 @@
+<div class="home">
+	<div class="container position-relative pb-5">
+		<app-nav-bar [menuModel]="menu">
+			<div class="d-flex align-items-center">
+				<app-badge [classBadge]="'bg-success fs-6'" [placeHolder]="'💰'+' $'+currentUser?.balance" class="me-3"></app-badge>
+				<app-avatar
+					(eventClick)="navigate($event)"
+					class="me-3"
+					[image]="currentUser?.avatar || '/assets/profileDefault.png'"
+				></app-avatar>
+				<app-icon
+					class="me-3"
+					(eventClick)="logout($event)"
+					[iconClass]="'fa-power-off'"
+					[type]="'fa-solid'"
+				></app-icon>
+			</div>
+		</app-nav-bar>
+		<router-outlet> </router-outlet>
+	</div>
+</div>
+<app-loading *ngIf="showLoading"></app-loading>

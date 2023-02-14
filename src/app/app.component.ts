@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   template: `
     <router-outlet></router-outlet>
   `,
-  styles: []
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'card-shop';

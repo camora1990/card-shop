@@ -1,0 +1,19 @@
+<div
+	class="row d-flex justify-content-center justify-content-lg-center align-content-center"
+>
+	<app-card
+		[hasImage]="false"
+		class="col-12 col-md-6 text-center d-flex justify-content-center animate__animated animate__bounce"
+		[title]="title | uppercase"
+		[subtitle]="subTitle"
+		
+	>
+		<div class="d-flex">
+			<app-button-icon
+				(clickEvent)="login($event)"
+				[placeholder]="placeHolder"
+			></app-button-icon>
+		</div>
+	</app-card>
+	<app-loading *ngIf="loading"></app-loading>
+</div>

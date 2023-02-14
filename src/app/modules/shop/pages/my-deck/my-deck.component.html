@@ -1,0 +1,51 @@
+<app-title class="text-center" label="My deck"></app-title>
+<div
+	*ngIf="groupCards.length > 0; else messaje"
+	class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3"
+>
+	<app-card
+		*ngFor="let item of groupCards"
+		[title]="item.hero.name"
+		[alt]="item.hero.name"
+		[hasImage]="true"
+		[src]="item.hero.imageUrl"
+		class="col"
+	>
+		<div class="mt-2 d-flex justify-content-start g-2">
+			<app-badge
+				classBadge="bg-success me-1"
+				[placeHolder]="'Price $' + item.hero.price"
+			></app-badge>
+			<app-badge
+				classBadge="bg-primary me-1"
+				[placeHolder]="'Total ' + item.quantity"
+			></app-badge>
+			<app-badge
+				classBadge="bg-danger me-1"
+				[placeHolder]="'Power ' + item.hero.power"
+			></app-badge>
+		</div>
+	</app-card>
+</div>
+
+<ng-template #messaje>
+	<div class="row row-cols-1 row-cols-xl-2 d-flex justify-content-center animate__animated animate__pulse">
+		<app-card
+			[title]="'Ooops...'"
+			fontfontSizeTitle="2.3rem"
+			subtitle="There are no cards in your deck, we invite you to check the availability of cards at the following link"
+			[hasImage]="false"
+			class="col"
+		>
+			<div class="footer" footer>
+				<app-button-icon
+				(clickEvent)="goHome()"
+					classBtn="secondary-button"
+					placeholder="Shop"
+					type="fa-solid"
+					iconClass="fa-shop"
+				></app-button-icon>
+			</div>
+		</app-card>
+	</div>
+</ng-template>
