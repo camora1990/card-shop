@@ -30,9 +30,9 @@ export class RechargeService {
 		const ref = doc(this.rechargeRef, recharge.uid);
 		return of(true).pipe(
 			switchMap(() => {
-				const newMount = this.validateRecharge(user, recharge);
+				const newAmount = this.validateRecharge(user, recharge);
 				user.recharges.push(recharge);
-				user.balance += newMount;
+				user.balance += newAmount;
 				return zip(
 					from(setDoc(ref, recharge)),
 					from(this.$user.updateUser(user)),
